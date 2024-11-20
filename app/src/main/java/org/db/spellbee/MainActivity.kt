@@ -49,7 +49,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,9 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.db.spellbee.ui.theme.SpellBeeTheme
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
-import org.db.spellbee.ui.theme.provider
+
 
 
 class MainActivity : ComponentActivity() {
@@ -80,10 +77,6 @@ class MainActivity : ComponentActivity() {
   }
 }
 
-val fontName = GoogleFont("Orbitron")
-val fontFamily = FontFamily(
-  Font(googleFont = fontName, fontProvider = provider)
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -95,7 +88,8 @@ fun SpellTopBar() {
         contentAlignment = Alignment.Center
       ) {
         Text(
-          fontFamily = fontFamily, text = "DB'r SpellBee"
+          style = MaterialTheme.typography.headlineMedium,
+          text = "DB'r SpellBee"
         )
       }
     },
@@ -170,14 +164,14 @@ fun WordFind(
               focusedBorderColor = MaterialTheme.colorScheme.background,
               unfocusedBorderColor = MaterialTheme.colorScheme.surface,
               unfocusedContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
-              focusedContainerColor = MaterialTheme.colorScheme.onTertiary,
+              focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
               focusedTextColor = MaterialTheme.colorScheme.error
             ),
           )
         }
         Box(
           modifier = Modifier
-              .width(80.dp)
+              .width(90.dp)
               .height(60.dp),
           contentAlignment = Alignment.Center
         ) {
@@ -201,8 +195,8 @@ fun WordFind(
             colors = OutlinedTextFieldDefaults.colors(
               focusedBorderColor = MaterialTheme.colorScheme.background,
               unfocusedBorderColor = MaterialTheme.colorScheme.surface,
-              unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
-              focusedContainerColor = MaterialTheme.colorScheme.onTertiary,
+              unfocusedContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
+              focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
               focusedTextColor = MaterialTheme.colorScheme.tertiary
             )
           )
@@ -218,7 +212,7 @@ fun WordFind(
               .padding(8.dp),
           colors = ButtonDefaults.elevatedButtonColors(
             contentColor = MaterialTheme.colorScheme.background,
-            containerColor = MaterialTheme.colorScheme.onBackground
+            containerColor = MaterialTheme.colorScheme.inversePrimary
           ),
           onClick = {
             resultVisible = true
@@ -257,8 +251,8 @@ fun WordFind(
               .size(120.dp, 60.dp)
               .padding(8.dp),
           colors = ButtonDefaults.elevatedButtonColors(
-            contentColor = MaterialTheme.colorScheme.inverseSurface,
-            containerColor = MaterialTheme.colorScheme.surface
+            contentColor = MaterialTheme.colorScheme.background,
+            containerColor = MaterialTheme.colorScheme.outline
           ),
           onClick = {
             resultVisible = false
@@ -341,7 +335,7 @@ fun WordFind(
                   fontSize = 16.sp,
                   fontWeight = if (count[index] == 7)
                     FontWeight.Bold else FontWeight.Normal,
-                  color = if (count[index] == 7) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.surface,
+                  color = if (count[index] == 7) MaterialTheme.colorScheme.inversePrimary else MaterialTheme.colorScheme.surface,
                   modifier = Modifier.padding(4.dp)
                 )
               }

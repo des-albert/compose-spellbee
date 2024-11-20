@@ -82,7 +82,8 @@ fun SpellBeeTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        content = content
+        content = content,
+        typography = AppTypography
     )
 }
 
