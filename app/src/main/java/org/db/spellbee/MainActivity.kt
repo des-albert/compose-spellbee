@@ -40,6 +40,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -56,7 +57,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.db.spellbee.ui.theme.SpellBeeTheme
-
+import kotlin.system.measureTimeMillis
 
 
 class MainActivity : ComponentActivity() {
@@ -115,6 +116,7 @@ fun WordFind(
   var outer: Int = -1
   var common: Int = 0
   var resultVisible by remember { mutableStateOf(false) }
+  var executionTime by remember { mutableLongStateOf(0L) }
 
   val wordLimit by wordFindModel.wordLimit
 
@@ -235,8 +237,10 @@ fun WordFind(
               common or (1 shl (c - 97))
             }
             outer = outer xor common
-
-            resultWords = wordFindModel.findWords(outer, common)
+            val time = measureTimeMillis {
+              resultWords = wordFindModel.findWords(outer, common)
+            }
+            executionTime = time
             count = wordFindModel.wordCount()
             score = wordFindModel.wordScore()
           }
@@ -307,7 +311,7 @@ fun WordFind(
           verticalAlignment = Alignment.CenterVertically
         ) {
           Text(
-            text = "${resultWords.size} words score $score",
+            text = "${resultWords.size} words, score $score, time $executionTime mS",
             fontSize = 20.sp,
             color = MaterialTheme.colorScheme.onTertiary, // Equivalent to Colors.orange
             fontWeight = FontWeight.Normal
