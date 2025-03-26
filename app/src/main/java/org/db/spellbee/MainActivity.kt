@@ -114,7 +114,7 @@ fun WordFind(
   var count by remember { mutableStateOf(listOf<Int>()) }
   var score by remember { mutableIntStateOf(0) }
   var outer: Int = -1
-  var common: Int = 0
+  var common = 0
   var resultVisible by remember { mutableStateOf(false) }
   var executionTime by remember { mutableLongStateOf(0L) }
 
@@ -336,7 +336,7 @@ fun WordFind(
               itemsIndexed(resultWords) { index, result ->
                 Text(
                   text = result,
-                  fontSize = 16.sp,
+                  fontSize = 14.sp,
                   fontWeight = if (count[index] == 7)
                     FontWeight.Bold else FontWeight.Normal,
                   color = if (count[index] == 7) MaterialTheme.colorScheme.inversePrimary else MaterialTheme.colorScheme.surface,
